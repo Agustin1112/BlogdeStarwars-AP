@@ -1,16 +1,29 @@
-//import react into the bundle
-import React from 'react'
-import {createRoot} from 'react-dom/client'
+// Import React into the bundle
+import React from "react";
+import ReactDOM from "react-dom/client"; // Cambiado a react-dom/client
 
-//include your index.scss file into the bundle
-import "../styles/index.css";
+// Include Bootstrap npm library into the bundle
+import "bootstrap/dist/css/bootstrap.css";
 
-//import your own components
-import Layout from './layout.js'
+// Include your index.scss file into the bundle
+import "../styles/index.css"; // Asegúrate de que la ruta sea correcta
 
-//
-const root = createRoot(document.querySelector("#app"))
+// Import your own components
+import Layout from "./layout";
+import { AppContextProvider } from "./store/appContext"; // Asegúrate de que la ruta sea correcta
+import { FavoritesProvider } from "./store/FavoritesContext"; // Importa el nuevo contexto
 
-//render your react application
-root.render(<Layout/>)
+
+// Render your React application using createRoot
+const root = ReactDOM.createRoot(document.querySelector("#app")); // Cambiado a createRoot
+root.render(
+    <AppContextProvider>
+        <FavoritesProvider> {/* Añade el FavoritesProvider aquí */}
+            <Layout />
+        </FavoritesProvider>
+    </AppContextProvider>
+);
+
+
+
 

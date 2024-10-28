@@ -1,8 +1,7 @@
 import React from 'react';
 
-const Single = () => {
+const SinglePlanet = () => {
     // Tu código del componente aquí
 };
 
-export default Single;
-
+export default SinglePlanet;
