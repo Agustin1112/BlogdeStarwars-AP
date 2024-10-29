@@ -1,5 +1,3 @@
-// layout.js
-
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './component/navbar';
@@ -8,6 +6,7 @@ import Single from './views/single';
 import SinglePlanet from './views/singlePlanet';
 import SingleStarship from './views/singleStarship';
 import Planets from './views/Planets'; // Asegúrate de importar el componente de planetas
+import Favorites from './component/Favorites'; // Importa el componente de favoritos
 import Footer from './component/footer';
 
 const Layout = () => {
@@ -20,7 +19,8 @@ const Layout = () => {
                     <Route path="/single" element={<Single />} />
                     <Route path="/single-planet" element={<SinglePlanet />} />
                     <Route path="/single-starship" element={<SingleStarship />} />
-                    <Route path="/planets" element={<Planets />} /> {/* Agrega esta línea para la ruta de planetas */}
+                    <Route path="/planets" element={<Planets />} /> {/* Ruta para planetas */}
+                    <Route path="/favorites" element={<Favorites />} /> {/* Ruta para la página de favoritos */}
                 </Routes>
             </div>
             <Footer />
@@ -29,5 +29,6 @@ const Layout = () => {
 };
 
 export default Layout;
+
 
 
