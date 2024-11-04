@@ -1,23 +1,35 @@
 // CharCard.js
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { fetchItemById } from "../store/swapiService";
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import AddButton from "./addButton";
 
 const CharCard = ({ character, onFavoriteClick }) => {
+    // Detalles del personaje traidos por Id
+    const [details, setDetails] = useState([]);
+    // Traer datos de todos los personajes
+    useEffect(() => {
+        fetchItemById('people', character.uid, setDetails);
+    }, []);
+
     return (
-        <div className="card">
-            <img src="https://via.placeholder.com/400x200" className="card-img-top" alt={character.name} />
-            <div className="card-body">
-                <h5 className="card-title">{character.name}</h5>
-                <p className="card-text">
-                    <strong>Gender:</strong> {character.gender || "n/a"}<br />
-                    <strong>Hair Color:</strong> {character.hair_color || "n/a"}<br />
-                    <strong>Eye Color:</strong> {character.eye_color || "n/a"}
-                </p>
-                <button className="btn btn-primary">Learn more!</button>
-                <button className="btn btn-outline-warning" onClick={() => onFavoriteClick(character)}>
-                    <i className="far fa-heart"></i>
-                </button>
-            </div>
-        </div>
+        <Card>
+            <Card.Img src="https://via.placeholder.com/400x200" alt={details.name} variant="top" />
+            <Card.Body>
+                <Card.Title>{details.name}</Card.Title>
+                <Card.Text>
+                    <strong>Gender:&nbsp;</strong>{details.gender || "n/a"}<br />
+                    <strong>Hair Color:&nbsp;</strong>{details.hair_color || "n/a"}<br />
+                    <strong>Eye Color:&nbsp;</strong>{details.eye_color || "n/a"}
+                </Card.Text>
+                <Link to={`/details/${character.uid}`} aria-label='character-uid'>
+                    <Button variant="outline-primary">Learn more!</Button>
+                </Link>
+                <AddButton data={character} subdir="details" onFavoriteClick={onFavoriteClick} />
+            </Card.Body>
+        </Card>
     );
 };
 

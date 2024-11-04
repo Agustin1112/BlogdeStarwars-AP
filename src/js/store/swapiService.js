@@ -23,7 +23,6 @@ export const fetchPeople = async () => {
         throw error;
     }
 };
-
 export const fetchVehicles = async () => {
     try {
         const response = await fetch(`${BASE_URL}vehicles/`);
@@ -31,6 +30,17 @@ export const fetchVehicles = async () => {
         return data.result; // Retorna la lista de vehículos
     } catch (error) {
         console.error("Error fetching vehicles:", error);
+        throw error;
+    }
+};
+// ------ Traer detalles del item  ------ //
+export const fetchItemById = async (subdir, id, state) => {
+    try {
+        const response = await fetch(`${BASE_URL}${subdir}/${id}`);
+        const data = await response.json();
+        return state(data.result.properties); // Retorna detalles del item y lo almacena dentro de un estado
+    } catch (error) {
+        console.error("Error fetching data:", error);
         throw error;
     }
 };

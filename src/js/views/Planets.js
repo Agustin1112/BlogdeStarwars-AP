@@ -14,9 +14,7 @@ const Planets = () => {
         <div>
             <h1>Planets</h1>
             <ul>
-                {store.planets.map((planet) => (
-                    <li key={planet.uid}>{planet.name}</li>
-                ))}
+                {store.planets.map((planet) => (<li key={planet.uid}>{planet.name}</li>))}
             </ul>
         </div>
     );

@@ -16,8 +16,8 @@ const Layout = () => {
             <div className="container mt-3">
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/single" element={<Single />} />
-                    <Route path="/single-planet" element={<SinglePlanet />} />
+                    <Route path="/details/:id" element={<Single />} />
+                    <Route path="/planet_details/:id" element={<SinglePlanet />} />
                     <Route path="/single-starship" element={<SingleStarship />} />
                     <Route path="/planets" element={<Planets />} /> {/* Ruta para planetas */}
                     <Route path="/favorites" element={<Favorites />} /> {/* Ruta para la página de favoritos */}

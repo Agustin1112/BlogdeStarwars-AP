@@ -1,50 +1,35 @@
-import { Col, Card, Button } from "react-bootstrap";
-import React, { useContext, useEffect } from "react";
+// CharCard.js
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import { Context } from "../store/appContext";
+import { fetchItemById } from "../store/swapiService";
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import AddButton from "./addButton";
 
-const PlanetCard = props => {
-	const { store, actions } = useContext(Context);
-	const planetStore = store.planet.filter(plt => plt.name == props.planet.name);
-	useEffect(() => actions.planetDescription(props.planet.url), []);
+const PlanetCard = ({ planet, onFavoriteClick }) => {
+    // Detalles del planeta traidos por Id
+    const [details, setDetails] = useState([]);
+    // Traer datos de todos los planetas
+    useEffect(() => {
+        fetchItemById('planets', planet.uid, setDetails);
+    }, []);
 
-	return (
-		<Col>
-			<Card>
-				<Card.Img
-					variant="top"
-					src="https://raw.githubusercontent.com/NicolasArayaB/starwars-blog-reading-list/master/dist/img/tatooine.jpg"
-				/>
-				<Card.Body>
-					<Card.Title>{props.planet.name}</Card.Title>
-					{planetStore[0] ? (
-						<Card.Text>
-							<p>Population: {planetStore[0].population}</p>
-							<p>Terrain: {planetStore[0].terrain}</p>
-						</Card.Text>
-					) : (
-						""
-					)}
-					<Link to={"/single_planet/" + props.planet.uid} data={planetStore}>
-						<Button variant="outline-primary">Learn More</Button>
-					</Link>
-					<Button
-						variant="outline-warning"
-						className="likeBtn"
-						onClick={() => actions.addItem(props.planet.name)}>
-						&#9825;
-					</Button>
-				</Card.Body>
-			</Card>
-		</Col>
-	);
-};
-
-PlanetCard.propTypes = {
-	index: PropTypes.number,
-	planet: PropTypes.object,
-	id: PropTypes.number
+    return (
+        <Card>
+            <Card.Img src="https://via.placeholder.com/400x200" alt={details.name} variant="top" />
+            <Card.Body>
+                <Card.Title>{details.name}</Card.Title>
+                <Card.Text>
+                    <strong>Population:&nbsp;</strong>{details.population || "n/a"}<br />
+                    <strong>Terrain:&nbsp;</strong>{details.terrain || "n/a"}
+                </Card.Text>
+                <Link to={`/planet_details/${planet.uid}`} aria-label='planet-uid'>
+                    <Button variant="outline-primary">Learn more!</Button>
+                </Link>
+                <AddButton data={planet} subdir="planet_details" onFavoriteClick={onFavoriteClick} />
+            </Card.Body>
+        </Card>
+    );
 };
 
 export default PlanetCard;

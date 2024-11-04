@@ -21,9 +21,9 @@ export const FavoritesProvider = ({ children }) => {
         });
     };
 
-    const removeFavorite = (itemId) => {
+    const removeFavorite = (itemName) => {
         setFavorites((prev) => {
-            const updatedFavorites = prev.filter(item => item.id !== itemId);
+            const updatedFavorites = prev.filter(item => item.name !== itemName);
             localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
             return updatedFavorites;
         });

@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom/client"; // Cambiado a react-dom/client
 
 // Include Bootstrap npm library into the bundle
-import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 // Include your index.scss file into the bundle
 import "../styles/index.css"; // Asegúrate de que la ruta sea correcta
