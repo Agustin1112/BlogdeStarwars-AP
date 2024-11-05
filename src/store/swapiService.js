@@ -1,6 +1,6 @@
 // store/swapiService.js
 
-const BASE_URL = "https://www.swapi.tech/api/";
+const BASE_URL = `https://www.swapi.tech/api/`;
 
 export const fetchPlanets = async () => {
     try {
@@ -38,9 +38,19 @@ export const fetchItemById = async (subdir, id, state) => {
     try {
         const response = await fetch(`${BASE_URL}${subdir}/${id}`);
         const data = await response.json();
-        return state(data.result.properties); // Retorna detalles del item y lo almacena dentro de un estado
+        return state(data.result); // Retorna detalles del item y lo almacena dentro de un estado
     } catch (error) {
         console.error("Error fetching data:", error);
         throw error;
     }
 };
+// Funcion para checkear el estado de la url
+export const checkUrlStatus = async (url, state) => {
+    try {
+        const response = await fetch(url);
+        return state(response.status); // Retorna status y lo almacena dentro de un estado
+    } catch (error) {
+        console.error("Error fetching url:", error);
+        throw error;
+    }
+}
